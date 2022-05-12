@@ -22,7 +22,7 @@ export function ConnectModalIntro({ getWallet }: { getWallet: () => void }) {
         style={{ gap: 62 }}
       >
         <Text color="modalText" size="18" weight="heavy">
-          What is a Wallet?
+          Qu&apos;est-ce qu&apos;un wallet ?
         </Text>
         <Box
           display="flex"
