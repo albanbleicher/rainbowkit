@@ -1,8 +1,18 @@
-import React, { createContext, ReactNode, useContext, useMemo } from 'react';
+import i18n from 'i18next';
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useMemo,
+} from 'react';
+
+import { initReactI18next } from 'react-i18next';
 import { cssStringFromTheme } from '../../css/cssStringFromTheme';
 import { ThemeVars } from '../../css/sprinkles.css';
 import { lightTheme } from '../../themes/lightTheme';
 import { TransactionStoreProvider } from '../../transactions/TransactionStoreContext';
+import { getConfig } from '../../translation/config';
 import { AppContext, defaultAppInfo } from './AppContext';
 import { CoolModeContext } from './CoolModeContext';
 import {
@@ -46,6 +56,7 @@ export interface RainbowKitProviderProps {
   showRecentTransactions?: boolean;
   appInfo?: { appName?: string; learnMoreUrl?: string };
   coolMode?: boolean;
+  lang?: string;
 }
 
 const defaultTheme = lightTheme();
@@ -58,6 +69,7 @@ export function RainbowKitProvider({
   appInfo,
   showRecentTransactions = false,
   coolMode = false,
+  lang,
 }: RainbowKitProviderProps) {
   const rainbowkitChains = useMemo(
     () => provideRainbowKitChains(chains),
@@ -75,6 +87,10 @@ export function RainbowKitProvider({
     ...defaultAppInfo,
     ...appInfo,
   };
+
+  useEffect(() => {
+    i18n.use(initReactI18next).init(getConfig(lang));
+  }, [lang]);
 
   return (
     <RainbowKitChainContext.Provider value={rainbowkitChains}>

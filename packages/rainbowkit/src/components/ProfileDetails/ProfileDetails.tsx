@@ -1,4 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAccount, useBalance, useEnsAvatar, useEnsName } from 'wagmi';
 import { isMobile } from '../../utils/isMobile';
 import { Avatar } from '../Avatar/Avatar';
@@ -40,6 +41,8 @@ export function ProfileDetails({
       setCopiedAddress(true);
     }
   }, [accountData?.address]);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (copiedAddress) {
@@ -134,12 +137,12 @@ export function ProfileDetails({
             <ProfileDetailsAction
               action={copyAddressAction}
               icon={copiedAddress ? <CopiedIcon /> : <CopyIcon />}
-              label={copiedAddress ? 'Copied!' : 'Copy Address'}
+              label={copiedAddress ? t('Copied!') : t('Copy Address')}
             />
             <ProfileDetailsAction
               action={onDisconnect}
               icon={<DisconnectIcon />}
-              label="Disconnect"
+              label={t('Disconnect')}
             />
           </Box>
         </Box>

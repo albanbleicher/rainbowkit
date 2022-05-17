@@ -113,6 +113,7 @@ function App({ Component, pageProps }: AppProps) {
           appInfo={demoAppInfo}
           chains={chains}
           coolMode={coolModeEnabled}
+          lang="en-US"
           showRecentTransactions={showRecentTransactions}
           theme={currentTheme({
             ...accentColor,

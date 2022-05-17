@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { increaseHitAreaForHoverTransform } from '../../css/increaseHitAreaForHoverTransform.css';
 import { isSafari } from '../../utils/browsers';
 import { groupBy } from '../../utils/groupBy';
@@ -93,6 +94,7 @@ export function DesktopOptions({ onClose }: { onClose: () => void }) {
   let walletContent = null;
   let headerLabel = null;
   let headerBackButtonLink: WalletStep | null = null;
+  const { t } = useTranslation();
 
   useEffect(() => {
     setConnectionError(false);
@@ -106,7 +108,7 @@ export function DesktopOptions({ onClose }: { onClose: () => void }) {
       break;
     case WalletStep.Get:
       walletContent = <GetDetail getMobileWallet={getMobileWallet} />;
-      headerLabel = 'Get a Wallet';
+      headerLabel = t('Get a Wallet');
       headerBackButtonLink = WalletStep.None;
       break;
     case WalletStep.Connect:
@@ -121,9 +123,9 @@ export function DesktopOptions({ onClose }: { onClose: () => void }) {
       );
       headerLabel =
         hasQrCode &&
-        `Scan with ${
+        `${t('Scan With')} ${
           selectedWallet.name === 'WalletConnect'
-            ? 'your phone'
+            ? t('your phone')
             : selectedWallet.name
         }`;
       break;
@@ -158,7 +160,7 @@ export function DesktopOptions({ onClose }: { onClose: () => void }) {
       >
         <Box marginLeft="6" paddingBottom="10" paddingX="18">
           <Text as="h1" color="modalText" id={titleId} size="18" weight="heavy">
-            Connect a Wallet
+            {t('Connect a Wallet')}
           </Text>
         </Box>
         <Box className={ScrollClassName} paddingBottom="18">

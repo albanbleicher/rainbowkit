@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { increaseHitAreaForHoverTransform } from '../../css/increaseHitAreaForHoverTransform.css';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { isSafari } from '../../utils/browsers';
@@ -24,7 +25,7 @@ export function GetDetail({
 }) {
   const wallets = useWalletConnectors();
   const shownWallets = wallets.splice(0, 5);
-
+  const { t } = useTranslation();
   return (
     <Box
       alignItems="center"
@@ -81,16 +82,16 @@ export function GetDetail({
                     </Text>
                     <Text color="modalTextSecondary" size="14" weight="medium">
                       {hasMobileCompanionApp
-                        ? 'Mobile Wallet'
+                        ? t('Mobile Wallet')
                         : downloadUrls?.browserExtension
-                        ? 'Browser Extension'
+                        ? t('Browser Extension')
                         : null}
                     </Text>
                   </Box>
                 </Box>
                 <Box display="flex" flexDirection="column" gap="4">
                   <ActionButton
-                    label="GET"
+                    label={t('GET')}
                     onClick={() => hasMobileCompanionApp && getMobileWallet(id)}
                     {...(!hasMobileCompanionApp &&
                     downloadUrls?.browserExtension
@@ -115,11 +116,10 @@ export function GetDetail({
         style={{ maxWidth: 275, textAlign: 'center' }}
       >
         <Text color="modalText" size="14" weight="bold">
-          Not what you&rsquo;re looking for?
+          {t("Not what you're looking for?")}
         </Text>
         <Text color="modalTextSecondary" size="14" weight="medium">
-          Select a wallet on the left to get started with a different wallet
-          provider.
+          {t('Select a wallet on the left')}
         </Text>
       </Box>
     </Box>
@@ -151,13 +151,14 @@ export function ConnectDetail({
   } = wallet;
   const getDesktopDeepLink = wallet.desktop?.getUri;
   const safari = isSafari();
+  const { t } = useTranslation();
   let readyMsg;
   if (ready) {
-    readyMsg = 'Waiting for connection';
+    readyMsg = t('Waiting for connection');
   } else if (downloadUrls?.browserExtension) {
-    readyMsg = `The ${name} extension is not installed in your browser`;
+    readyMsg = t('The extension is not installed in your browser', { name });
   } else {
-    readyMsg = `${name} is not available on this device`;
+    readyMsg = t('is not available on this device', { name });
   }
 
   const secondaryAction: {
@@ -167,19 +168,19 @@ export function ConnectDetail({
     href?: string;
   } = showWalletConnectModal
     ? {
-        description: 'Need the official WalletConnect modal?',
-        label: 'OPEN',
+        description: t('Need the official WalletConnect modal?'),
+        label: t('OPEN'),
         onClick: showWalletConnectModal,
       }
     : qrCode
     ? {
-        description: `Don\u2019t have the ${name} app?`,
-        label: 'GET',
+        description: t("Don't have the app?", { name }),
+        label: t('GET'),
         onClick: () => setWalletStep(WalletStep.Download),
       }
     : {
-        description: `Confirm the connection in ${name}`,
-        label: 'RETRY',
+        description: t('Confirm the connection in', { name }),
+        label: t('RETRY'),
         onClick: getDesktopDeepLink
           ? async () => {
               const uri = await getDesktopDeepLink();
@@ -237,10 +238,10 @@ export function ConnectDetail({
             >
               <Text color="modalText" size="20" weight="bold">
                 {ready
-                  ? `Opening ${name}`
+                  ? t('Opening', { name })
                   : downloadUrls?.browserExtension
-                  ? `${name} is not installed`
-                  : `${name} is not available`}
+                  ? t('is not installed', { name })
+                  : t('is not available', { name })}
               </Text>
               <Box
                 color="modalTextSecondary"
@@ -256,7 +257,7 @@ export function ConnectDetail({
                     textAlign="center"
                     weight="bold"
                   >
-                    Error connecting, please retry!
+                    {t('Error connecting, please retry!')}
                   </Text>
                 ) : (
                   <>
@@ -276,7 +277,7 @@ export function ConnectDetail({
                 <Box paddingTop="20">
                   <ActionButton
                     href={downloadUrls.browserExtension}
-                    label="INSTALL"
+                    label={t('INSTALL')}
                     type="secondary"
                   />
                 </Box>
@@ -321,7 +322,7 @@ export function DownloadDetail({
   wallet: WalletConnector;
 }) {
   const { downloadUrls, qrCode } = wallet;
-
+  const { t } = useTranslation();
   useEffect(() => {
     // Preload icons used on next screen
     preloadCreateIcon();
@@ -339,7 +340,7 @@ export function DownloadDetail({
     >
       <Box style={{ maxWidth: 220, textAlign: 'center' }}>
         <Text color="modalTextSecondary" size="14" weight="semibold">
-          Scan with your phone to download on iOS or Android
+          {t('Scan with your phone to download')}
         </Text>
       </Box>
       <Box height="full">
@@ -399,6 +400,7 @@ export function InstructionDetail({
   setWalletStep: (newWalletStep: WalletStep) => void;
   wallet: WalletConnector;
 }) {
+  const { t } = useTranslation();
   return (
     <Box
       alignItems="center"
@@ -454,7 +456,7 @@ export function InstructionDetail({
         marginBottom="16"
       >
         <ActionButton
-          label="Connect"
+          label={t('Connect')}
           onClick={() => setWalletStep(WalletStep.Connect)}
         />
         <Box
@@ -473,7 +475,7 @@ export function InstructionDetail({
             transition="default"
           >
             <Text color="accentColor" size="14" weight="bold">
-              Learn More
+              {t('Learn More')}
             </Text>
           </Box>
         </Box>

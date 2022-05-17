@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { increaseHitAreaForHoverTransform } from '../../css/increaseHitAreaForHoverTransform.css';
 import {
   mapResponsiveValue,
@@ -33,8 +35,8 @@ export function ConnectButton({
   chainStatus = defaultProps.chainStatus,
   showBalance = defaultProps.showBalance,
 }: ConnectButtonProps) {
+  const { t } = useTranslation();
   const chains = useRainbowKitChains();
-
   return (
     <ConnectButtonRenderer>
       {({
@@ -104,7 +106,7 @@ export function ConnectButton({
                           height="24"
                           paddingX="4"
                         >
-                          Wrong network
+                          {t('Wrong network')}
                         </Box>
                       ) : (
                         <Box alignItems="center" display="flex" gap="6">
@@ -262,7 +264,7 @@ export function ConnectButton({
                   transform={{ active: 'shrink', hover: 'grow' }}
                   transition="default"
                 >
-                  Connect Wallet
+                  {t('Connect Wallet')}
                 </Box>
               </Box>
             )}

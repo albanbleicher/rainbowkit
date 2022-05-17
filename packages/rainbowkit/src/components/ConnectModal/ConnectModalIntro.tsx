@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { increaseHitAreaForHoverTransform } from '../../css/increaseHitAreaForHoverTransform.css';
 import { Box } from '../Box/Box';
 import { ActionButton } from '../Button/ActionButton';
@@ -10,6 +12,7 @@ import { Text } from '../Text/Text';
 
 export function ConnectModalIntro({ getWallet }: { getWallet: () => void }) {
   const { learnMoreUrl } = useContext(AppContext);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -22,7 +25,7 @@ export function ConnectModalIntro({ getWallet }: { getWallet: () => void }) {
         style={{ gap: 62 }}
       >
         <Text color="modalText" size="18" weight="heavy">
-          Qu&apos;est-ce qu&apos;un wallet ?
+          {t('What is a Wallet?')}
         </Text>
         <Box
           display="flex"
@@ -38,11 +41,10 @@ export function ConnectModalIntro({ getWallet }: { getWallet: () => void }) {
             </Box>
             <Box display="flex" flexDirection="column" gap="4">
               <Text color="modalText" size="14" weight="bold">
-                A Home for your Digital Assets
+                {t('A Home for your Digital Assets')}
               </Text>
               <Text color="modalTextSecondary" size="14" weight="medium">
-                Wallets are used to send, receive, store, and display digital
-                assets like Ethereum and NFTs.
+                {t('Wallets are used to')}
               </Text>
             </Box>
           </Box>
@@ -52,11 +54,10 @@ export function ConnectModalIntro({ getWallet }: { getWallet: () => void }) {
             </Box>
             <Box display="flex" flexDirection="column" gap="4">
               <Text color="modalText" size="14" weight="bold">
-                A New Way to Log In
+                {t('A New Way to Log In')}
               </Text>
               <Text color="modalTextSecondary" size="14" weight="medium">
-                Instead of creating new accounts and passwords on every website,
-                just connect your wallet.
+                {t('Instead of creating new accounts')}
               </Text>
             </Box>
           </Box>
@@ -69,7 +70,7 @@ export function ConnectModalIntro({ getWallet }: { getWallet: () => void }) {
           justifyContent="center"
           marginTop="8"
         >
-          <ActionButton label="Get a Wallet" onClick={getWallet} />
+          <ActionButton label={t('Get a Wallet')} onClick={getWallet} />
           <Box
             as="a"
             className={increaseHitAreaForHoverTransform.grow}
@@ -86,7 +87,7 @@ export function ConnectModalIntro({ getWallet }: { getWallet: () => void }) {
               transition="default"
             >
               <Text color="accentColor" size="14" weight="bold">
-                Learn More
+                {t('Learn More')}
               </Text>
             </Box>
           </Box>

@@ -1,4 +1,5 @@
 import React, { useCallback, useContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { increaseHitAreaForHoverTransform } from '../../css/increaseHitAreaForHoverTransform.css';
 import { isIOS } from '../../utils/isMobile';
 import {
@@ -29,6 +30,7 @@ function WalletButton({ wallet }: { wallet: WalletConnector }) {
   } = wallet;
   const getMobileUri = mobile?.getUri;
   const coolModeRef = useCoolMode(iconUrl);
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -83,7 +85,7 @@ function WalletButton({ wallet }: { wallet: WalletConnector }) {
 
           {wallet.recent && (
             <Text color="accentColor" size="12" weight="medium">
-              Recent
+              {t('Recent')}
             </Text>
           )}
         </Box>
@@ -101,6 +103,7 @@ export function MobileOptions({ onClose }: { onClose: () => void }) {
   const titleId = 'rk_connect_title';
   const wallets = useWalletConnectors();
   const { learnMoreUrl } = useContext(AppContext);
+  const { t } = useTranslation();
 
   let headerLabel = null;
   let walletContent = null;
@@ -115,7 +118,7 @@ export function MobileOptions({ onClose }: { onClose: () => void }) {
 
   switch (walletStep) {
     case MobileWalletStep.Connect: {
-      headerLabel = 'Connect a Wallet';
+      headerLabel = t('Connect a Wallet');
       headerBackgroundContrast = true;
       walletContent = (
         <>
@@ -163,12 +166,10 @@ export function MobileOptions({ onClose }: { onClose: () => void }) {
               textAlign="center"
             >
               <Text color="modalText" size="16" weight="bold">
-                What is a Wallet?
+                {t('What is a Wallet?')}
               </Text>
               <Text color="modalTextSecondary" size="16">
-                A wallet is used to send, receive, store, and display digital
-                assets. It&rsquo;s also a new way to log in, without needing to
-                create new accounts and passwords on&nbsp;every&nbsp;website.
+                {t('Wallets are used to')}
               </Text>
             </Box>
           </Box>
@@ -176,14 +177,14 @@ export function MobileOptions({ onClose }: { onClose: () => void }) {
           <Box paddingTop="32" paddingX="20">
             <Box display="flex" gap="14" justifyContent="center">
               <ActionButton
-                label="Get a Wallet"
+                label={t('Get a Wallet')}
                 onClick={() => setWalletStep(MobileWalletStep.Get)}
                 size="large"
                 type="secondary"
               />
               <ActionButton
                 href={learnMoreUrl}
-                label="Learn More"
+                label={t('Learn More')}
                 size="large"
                 type="secondary"
               />
@@ -194,7 +195,7 @@ export function MobileOptions({ onClose }: { onClose: () => void }) {
       break;
     }
     case MobileWalletStep.Get: {
-      headerLabel = 'Get a Wallet';
+      headerLabel = t('Get a Wallet');
       headerBackButtonLink = MobileWalletStep.Connect;
 
       const mobileWallets = wallets
@@ -249,7 +250,7 @@ export function MobileOptions({ onClose }: { onClose: () => void }) {
                       </Box>
                       <ActionButton
                         href={ios ? downloadUrls?.ios : downloadUrls?.android}
-                        label="GET"
+                        label={t('GET')}
                         size="small"
                         type="secondary"
                       />
@@ -284,11 +285,10 @@ export function MobileOptions({ onClose }: { onClose: () => void }) {
               textAlign="center"
             >
               <Text color="modalText" size="16" weight="bold">
-                Not what you&rsquo;re looking for?
+                {t("Not what you're looking for?")}
               </Text>
               <Text color="modalTextSecondary" size="16">
-                Select a wallet on the main screen to get started with a
-                different wallet provider.
+                {t('Select a wallet on the main')}
               </Text>
             </Box>
           </Box>

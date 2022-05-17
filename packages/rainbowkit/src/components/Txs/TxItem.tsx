@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNetwork } from 'wagmi';
 import { increaseHitAreaForHoverTransform } from '../../css/increaseHitAreaForHoverTransform.css';
 import { Transaction } from '../../transactions/transactionStore';
@@ -33,13 +34,13 @@ export function TxItem({ tx }: TxProps) {
   const Icon = getTxStatusIcon(tx.status);
   const color = tx.status === 'failed' ? 'error' : 'accentColor';
   const { activeChain } = useNetwork();
-
+  const { t } = useTranslation();
   const confirmationStatus =
     tx.status === 'confirmed'
-      ? 'Confirmed'
+      ? t('Confirmed')
       : tx.status === 'failed'
-      ? 'Failed'
-      : 'Pending';
+      ? t('Failed')
+      : t('Pending');
 
   const explorerLink = chainToExplorerUrl(activeChain);
 

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAccount, useNetwork } from 'wagmi';
 import { increaseHitAreaForHoverTransform } from '../../css/increaseHitAreaForHoverTransform.css';
 import { useClearRecentTransactions } from '../../transactions/useClearRecentTransactions';
@@ -28,6 +29,7 @@ export function TxList({ accountData }: TxListProps) {
   const hasTransactions = visibleTxs.length > 0;
   const mobile = isMobile();
   const { appName } = useContext(AppContext);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -51,7 +53,7 @@ export function TxList({ accountData }: TxListProps) {
                 size={mobile ? '16' : '14'}
                 weight="semibold"
               >
-                Recent Transactions
+                {t('Recent Transactions')}
               </Text>
               <Box
                 style={{
@@ -87,7 +89,7 @@ export function TxList({ accountData }: TxListProps) {
                       size={mobile ? '16' : '14'}
                       weight="semibold"
                     >
-                      Clear All
+                      {t('Clear All')}
                     </Text>
                   </Box>
                 </Box>
@@ -106,7 +108,9 @@ export function TxList({ accountData }: TxListProps) {
                   size={mobile ? '16' : '14'}
                   weight={mobile ? 'medium' : 'bold'}
                 >
-                  {appName ?? 'Your'} transactions will appear here...
+                  {t('transactions will appear here...', {
+                    name: appName,
+                  })}
                 </Text>
               </Box>
               {mobile && (
@@ -157,7 +161,7 @@ export function TxList({ accountData }: TxListProps) {
                 size={mobile ? '16' : '14'}
                 weight={mobile ? 'semibold' : 'bold'}
               >
-                View more on Explorer
+                {t('View more on Explorer')}
               </Text>
               <ExternalLinkIcon />
             </Box>

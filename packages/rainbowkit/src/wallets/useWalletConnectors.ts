@@ -1,9 +1,9 @@
+import { t } from 'i18next';
 import { Connector, useConnect } from 'wagmi';
 import { indexBy } from '../utils/indexBy';
 import { isNotNullish } from '../utils/isNotNullish';
 import { WalletInstance } from './Wallet';
 import { addRecentWalletId, getRecentWalletIds } from './recentWalletIds';
-
 export interface WalletConnector extends WalletInstance {
   ready?: boolean;
   connect?: ReturnType<typeof useConnect>['connectAsync'];
@@ -43,7 +43,6 @@ export function useWalletConnectors(): WalletConnector[] {
       connector => !recentConnectors.includes(connector)
     ),
   ];
-
   return connectors
     .map((connector: Connector) => {
       // @ts-expect-error
@@ -58,7 +57,7 @@ export function useWalletConnectors(): WalletConnector[] {
       return {
         ...wallet,
         connect: () => connectWallet(wallet.id, connector),
-        groupName: recent ? 'Recent' : wallet.groupName,
+        groupName: recent ? t('Recent') : t(wallet.groupName),
         onConnecting: (fn: () => void) =>
           connector.on('message', ({ type }) =>
             type === 'connecting' ? fn() : undefined
