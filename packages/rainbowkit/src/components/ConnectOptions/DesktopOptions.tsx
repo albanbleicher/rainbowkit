@@ -158,7 +158,7 @@ export function DesktopOptions({ onClose }: { onClose: () => void }) {
         flexDirection="column"
         marginTop="18"
       >
-        <Box marginLeft="6" paddingBottom="10" paddingX="18">
+        <Box marginLeft="6" paddingBottom="8" paddingX="18">
           <Text as="h1" color="modalText" id={titleId} size="18" weight="heavy">
             {t('Connect a Wallet')}
           </Text>
